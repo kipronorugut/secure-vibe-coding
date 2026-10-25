@@ -149,7 +149,7 @@ See the [security policy](SECURITY.md) before reporting a vulnerability.
 
 Developer feedback, reproducible test cases, corrections to public advisories and improvements to the skills are welcome.
 
-For a change, **open an issue**, document the evidence, add a synthetic fixture where useful, and submit a pull request. Start with [CONTRIBUTING.md](CONTRIBUTING.md). Please do not submit confidential code or production secrets.
+For a change, open a [reproducible issue](.github/ISSUE_TEMPLATE/security_skill_issue.yml) or [research proposal](.github/ISSUE_TEMPLATE/research_proposal.yml), document the evidence, add a synthetic fixture where useful, and submit a pull request. Start with [CONTRIBUTING.md](CONTRIBUTING.md). Please do not submit confidential code or production secrets.
 
 ---
 
