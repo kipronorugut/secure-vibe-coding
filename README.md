@@ -9,7 +9,7 @@ A vendor-neutral Agent Skills toolkit for Claude Code, Claude Cowork, Cursor, an
 
 > **Independent project.** This repository is the personal open-source work of Kiprono Rugut. It is not an official project of, or endorsed by, any employer, client, or other company. Do not contribute confidential or employer-owned materials.
 
-## Five skills
+## Six skills
 
 | Skill | What it helps with | Invocation example |
 | --- | --- | --- |
@@ -18,8 +18,23 @@ A vendor-neutral Agent Skills toolkit for Claude Code, Claude Cowork, Cursor, an
 | `sbom-dependency-review` | SBOM and dependency review | "Use sbom-dependency-review to inspect this repo" |
 | `secrets-hygiene` | Safe credentials and secret handling | "Use secrets-hygiene on configuration files" |
 | `devsecops-pipeline-review` | CI/CD and supply-chain controls | "Review our GitHub Actions with devsecops-pipeline-review" |
+| `cve-to-pr-remediation` | Convert CVEs and vendor advisories into verified fixes and reviewable PRs | "Use cve-to-pr-remediation to assess this advisory and prepare a patch PR" |
 
-All skills follow the [Agent Skills specification](https://agentskills.io/specification), use a plain `SKILL.md` and require **no paid API, account, or scanner** for instruction-only analysis. Optional local scanners require their own installation. Findings are not verified unless the agent has supporting evidence.
+All skills follow the [Agent Skills specification](https://agentskills.io/specification), use a plain `SKILL.md` and require **no paid API, account, or scanner** for instruction-only analysis. Optional local scanners require their own installation. **CVE-to-PR starts read-only and never patches, opens a PR, deploys or declares remediation complete without the appropriate authorization and evidence.** Findings are not verified unless the agent has supporting evidence.
+
+## Start with an advisory
+
+If your team has received a CVE, GHSA or vendor notice, install only the remediation skill and ask your agent to turn the notice into a verified change plan:
+
+```bash
+python3 tools/install.py --agent cursor --project /path/to/your/app --skill cve-to-pr-remediation
+```
+
+Example agent prompt:
+
+> Use `cve-to-pr-remediation`. Verify this advisory against primary vendor sources, assess whether our *running* versions are affected, and prepare the smallest supported fix and an evidence-backed PR draft. Begin read-only. Do not change files, fetch dependencies, run commands or open a PR without my approval. Mark deployment verification separately from merge status.
+
+The skill covers application dependencies, language runtimes, container images, trust stores and operational mitigations. It will not invent fixed versions or claim a GitHub change proves production remediation. See [example workflow](docs/cve-to-pr-example.md).
 
 ## Quick install: project-level
 
@@ -32,7 +47,7 @@ python3 tools/install.py --agent claude --project /path/to/your/app
 python3 tools/install.py --agent codex --project /path/to/your/app
 ```
 
-**Do not run all three unless using all three agents.** The installer copies five skill directories into the chosen project's conventional directory without overwriting existing skills.
+**Do not run all three unless using all three agents.** The installer copies six skill directories into the chosen project's conventional directory without overwriting existing skills.
 
 | Agent | Project install | Personal install |
 | --- | --- | --- |
