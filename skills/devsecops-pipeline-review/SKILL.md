@@ -4,7 +4,7 @@ description: Review DevSecOps and CI/CD pipelines for risky permissions, untrust
 license: MIT
 metadata:
   author: Kiprono Rugut
-  version: "0.1.0"
+  version: "0.2.0"
 ---
 
 # DevSecOps Pipeline Review
@@ -20,7 +20,7 @@ Improve the security of build, test and release workflows without introducing un
 3. Trace untrusted PR/fork code into privileged jobs. Pay attention to `pull_request_target` workflows that checkout or execute untrusted revisions, and use of mutable third-party actions.
 4. Review script provenance: downloads piped to shells, dependency installation in privileged contexts, tags versus immutable action commits, build isolation and cache trust boundaries.
 5. Review release controls: required approvals, provenance/attestation, artifact integrity, secret protection, change review and rollback.
-6. Recommend a lean gate sequence appropriate to the project: unit tests, secret scanning, dependency review, SAST where useful, artifact checks, and manual approval for high-impact deployment.
+6. Recommend a lean gate sequence appropriate to the project: unit tests, secret scanning, dependency review, SAST where useful, artifact checks, and manual approval for high-impact deployment. A starter workflow (Gitleaks, Semgrep, Syft/Grype SBOM scan) is in `assets/security-scan.yml`; adapt it to the project and pin every third-party action to a full commit SHA before use.
 7. Recommend minimum permissions, separate build/deploy credentials, narrowly scoped environments and pinned dependencies based on actual risks.
 8. Produce a proposed YAML diff only when requested; never modify or trigger pipelines, request new credentials or deploy without explicit approval.
 

@@ -1,0 +1,62 @@
+# Security scan — secrets, code and dependencies on every push and PR.
+# Copy to .github/workflows/security-scan.yml
+#
+# Starter template — review before use. actions/checkout is pinned to a commit SHA;
+# pin every other third-party action the same way (uses: owner/action@<40-char-sha>  # vX.Y.Z)
+# after checking the release you intend to trust. Semgrep downloads its public rule pack
+# at run time; Grype downloads its vulnerability database.
+
+name: security-scan
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  secrets:
+    name: Secrets (Gitleaks)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 0          # full history so old leaks are found
+      - uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Required only for repositories owned by a GitHub organisation (free key from gitleaks.io):
+          GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_LICENSE }}
+
+  code:
+    name: Code (Semgrep)
+    runs-on: ubuntu-latest
+    container:
+      image: semgrep/semgrep
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - name: Semgrep scan
+        run: semgrep scan --config p/default --error --metrics=off
+
+  dependencies:
+    name: Dependencies (SBOM + Grype)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - name: Generate SBOM
+        uses: anchore/sbom-action@v0
+        with:
+          path: .
+          format: cyclonedx-json
+          output-file: sbom.cdx.json
+          upload-artifact: true
+      - name: Scan SBOM for vulnerabilities
+        uses: anchore/scan-action@v6
+        with:
+          sbom: sbom.cdx.json
+          fail-build: true
+          severity-cutoff: high
+          output-format: table

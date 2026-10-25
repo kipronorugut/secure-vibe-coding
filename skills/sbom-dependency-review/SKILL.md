@@ -4,7 +4,7 @@ description: Generate or evaluate a software bill of materials (SBOM) and depend
 license: MIT
 metadata:
   author: Kiprono Rugut
-  version: "0.1.0"
+  version: "0.2.0"
 ---
 
 # SBOM & Dependency Review
@@ -23,6 +23,10 @@ Provide an evidence-backed inventory of known software components and relevant s
 6. Investigate whether each reported vulnerability applies to the installed version and reachable code path. Keep `known vulnerable`, `potentially affected`, and `not verified` separate.
 7. Discuss direct/transitive exposure, supplier integrity, license flags and remediation choices. State where a lockfile, runtime image or scanner is missing.
 8. If output is requested, prefer `sbom.cdx.json` or `sbom.spdx.json` locally after approval; keep reports out of public repositories unless authorized.
+
+## Beyond known CVEs
+
+A clean vulnerability scan does not rule out a **malicious** dependency. Use `references/supply-chain-compromise.md` to check for compromised legitimate releases (for example LiteLLM 1.107.0 in October 2026), hallucinated or look-alike packages added by AI assistants, install-time scripts and Python startup hooks, unpinned versions and floating image tags. A confirmed compromised release is an incident — hand over to `cve-to-pr-remediation` and the security team rather than treating it as a routine upgrade.
 
 ## Good trigger examples
 
