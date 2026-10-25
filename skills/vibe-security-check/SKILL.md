@@ -7,7 +7,7 @@ metadata:
   version: "0.2.0"
 ---
 
-# Vibe Security Check
+# Pre-Deployment Security Check
 
 ## Goal
 
