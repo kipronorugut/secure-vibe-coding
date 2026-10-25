@@ -4,7 +4,7 @@ description: Detect and prevent credentials or secrets exposure in source, confi
 license: MIT
 metadata:
   author: Kiprono Rugut
-  version: "0.1.0"
+  version: "0.2.0"
 ---
 
 # Secrets & Credential Hygiene
@@ -16,7 +16,7 @@ Find likely secret exposures while ensuring review output never becomes another 
 ## Procedure
 
 1. Establish scope: current files, configuration, CI variables and optionally repository history. History inspection may be costly; confirm before running.
-2. Inspect secret-handling conventions: `.env`, example configurations, hardcoded tokens, test credentials, secrets committed to assets and leaked CI output.
+2. Inspect secret-handling conventions: `.env`, example configurations, hardcoded tokens, test credentials, secrets committed to assets and leaked CI output. Also check leaks that pattern scanners miss — server-only keys behind public env prefixes (`NEXT_PUBLIC_`, `VITE_`, `EXPO_PUBLIC_`, etc.), paid-AI API calls from frontend code, Docker image layers, and tokens in AI-coding-tool or MCP configuration files. See `references/client-and-tool-exposure.md`.
 3. Favor **metadata-only evidence**: path, line, credential type and a redacted fingerprint, e.g. `...ABCD`. Do not echo full values even if already visible.
 4. If a trusted local scanner (e.g. Gitleaks) is installed, confirm permissions and supported flags from its local help. Prefer redacted output and avoid uploading scan results.
 5. Classify likely real credentials versus placeholders, examples or false positives. A token format match alone does not prove validity; never test live credentials.

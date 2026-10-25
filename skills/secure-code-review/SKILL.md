@@ -4,7 +4,7 @@ description: Security-focused review of application source or a pull request. Us
 license: MIT
 metadata:
   author: Kiprono Rugut
-  version: "0.1.0"
+  version: "0.2.0"
 ---
 
 # Secure Code Review
@@ -27,6 +27,10 @@ Identify plausible, actionable source-level security defects with evidence and m
 ## Finding quality check
 
 A finding should include a real path and line, vulnerable behavior, attacker prerequisites, reason existing controls fail or are unclear, impact, and a directly testable fix. Never cite OWASP categories without the specific evidence.
+
+## Reference patterns
+
+Load `references/ai-generated-code-patterns.md` for bad/good code patterns covering authorization and IDOR, authentication, injection and XSS, mass assignment, rate limiting and cost abuse, AI/LLM features, webhooks and payments (including mobile-money callbacks), file handling, configuration and logging. Use it to decide where to look; every finding still needs evidence from the reviewed code.
 
 ## Good trigger examples
 
