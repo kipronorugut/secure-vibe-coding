@@ -1,0 +1,46 @@
+name: Security skill issue
+description: Report a reproducible problem in a skill, installer, reference or test.
+title: "[Issue] "
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for helping improve this independent security project.
+        **Do not post production credentials, customer data, private source code or exploitable details about live systems.**
+        For a private vulnerability, follow SECURITY.md.
+  - type: dropdown
+    id: area
+    attributes:
+      label: Affected area
+      options:
+        - Skill instructions
+        - CVE or advisory reference
+        - Installer or packaging
+        - Validation or tests
+        - Documentation
+    validations:
+      required: true
+  - type: textarea
+    id: behavior
+    attributes:
+      label: Observed issue
+      description: Explain what was incorrect. Use synthetic or public examples.
+      placeholder: What happened, and what should have happened?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction evidence
+      description: Include sanitized steps, expected behavior and the relevant skill/version.
+      placeholder: Minimal non-sensitive steps to reproduce
+    validations:
+      required: true
+  - type: checkboxes
+    id: safe
+    attributes:
+      label: Data safety
+      options:
+        - label: This report contains no secrets, private code, personal data or customer information.
+          required: true
