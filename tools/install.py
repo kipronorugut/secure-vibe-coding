@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
-"""Offline, no-overwrite project or user installer for Secure Vibe Coding."""
+"""Offline project or user installer for Secure Vibe Coding.
+
+Refuses to overwrite installed skills unless --update is given, and then only
+replaces folders that already hold the same skill."""
 from __future__ import annotations
 import argparse
 from pathlib import Path
@@ -11,7 +14,8 @@ SOURCE = ROOT / 'skills'
 DESTS = {'cursor': '.cursor/skills', 'claude': '.claude/skills', 'codex': '.agents/skills'}
 USERS = {'cursor': '.cursor/skills', 'claude': '.claude/skills', 'codex': '.agents/skills'}
 
-def install(agent: str, scope: str, project: Path | None, selection: list[str]) -> tuple[int,int]:
+def install(agent: str, scope: str, project: Path | None, selection: list[str],
+            update: bool = False) -> tuple[int,int]:
     if scope == 'project':
         if project is None:
             raise ValueError('--project is required for --scope project')
@@ -33,14 +37,42 @@ def install(agent: str, scope: str, project: Path | None, selection: list[str]) 
     installed, skipped = 0, 0
     for name in names:
         dst = target / name
-        if dst.exists() or dst.is_symlink():
-            print(f'SKIP (already exists): {dst}')
+        if dst.is_symlink():
+            print(f'SKIP (symlink, not touched): {dst}')
             skipped += 1
+            continue
+        if dst.exists():
+            if not update:
+                print(f'SKIP (already exists; use --update to replace): {dst}')
+                skipped += 1
+                continue
+            if not _is_same_skill(dst, name):
+                print(f'SKIP (existing folder is not the {name} skill): {dst}')
+                skipped += 1
+                continue
+            staging = target / f'.{name}.updating'
+            if staging.exists():
+                shutil.rmtree(staging)
+            shutil.copytree(available[name], staging)
+            shutil.rmtree(dst)
+            staging.rename(dst)
+            print(f'UPDATED: {dst}')
+            installed += 1
             continue
         shutil.copytree(available[name], dst)
         print(f'INSTALLED: {dst}')
         installed += 1
     return installed, skipped
+
+def _is_same_skill(folder: Path, name: str) -> bool:
+    """True only if folder contains a SKILL.md whose frontmatter name matches."""
+    skill_md = folder / 'SKILL.md'
+    if not skill_md.is_file():
+        return False
+    for line in skill_md.read_text(encoding='utf8').splitlines()[1:20]:
+        if line.startswith('name:'):
+            return line.split(':', 1)[1].strip().strip('"\'') == name
+    return False
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
@@ -48,13 +80,14 @@ def main() -> int:
     parser.add_argument('--scope', choices=['project','user'], default='project')
     parser.add_argument('--project', type=Path, help='Target application path for project installs')
     parser.add_argument('--skill', action='append', default=[], help='Skill name; repeat to select multiple')
+    parser.add_argument('--update', action='store_true', help='Replace previously installed copies of these skills with this version')
     args = parser.parse_args()
     try:
-        installed, skipped = install(args.agent, args.scope, args.project, args.skill)
+        installed, skipped = install(args.agent, args.scope, args.project, args.skill, args.update)
     except (ValueError, OSError) as exc:
         print(f'ERROR: {exc}', file=sys.stderr)
         return 2
-    print(f'Complete: {installed} installed, {skipped} skipped. Inspect installed SKILL.md before use.')
+    print(f'Complete: {installed} installed or updated, {skipped} skipped. Inspect installed SKILL.md before use.')
     return 0
 
 if __name__ == '__main__':
