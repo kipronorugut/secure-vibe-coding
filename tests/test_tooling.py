@@ -59,6 +59,9 @@ class ToolkitTests(unittest.TestCase):
             (installed / 'stale.txt').write_text('old', encoding='utf8')
             self.assertEqual(install('codex', 'project', project, ['secrets-hygiene'], update=True), (1, 0))
             self.assertFalse((installed / 'stale.txt').exists())
+            backups = list((project / '.agents/skills').glob('.secrets-hygiene.backup-*'))
+            self.assertEqual(len(backups), 1)
+            self.assertEqual((backups[0] / 'stale.txt').read_text(encoding='utf8'), 'old')
             self.assertTrue((installed / 'references/client-and-tool-exposure.md').is_file())
             # A same-named folder that is not this skill is left alone.
             other = project / '.agents/skills/cve-to-pr-remediation'
@@ -109,6 +112,7 @@ class InventoryScriptTests(unittest.TestCase):
         self.assertTrue(self.project_lines(out, 'EOL'))
         self.assertTrue(self.project_lines(out, 'COMPROMISED'))
         self.assertIn('[DISABLED-TLS]', out)
+        self.assertNotIn('new https.Agent({', out)  # Never disclose full source lines.
 
     def test_fixed_versions_are_not_flagged(self):
         _, out = self.run_inventory({
