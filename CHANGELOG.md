@@ -14,6 +14,9 @@
 - Tests for `--update`, missing references, and the inventory script on synthetic fixtures.
 
 ### Changed
+- README now uses the developer-friendly public name **Secure Agent Skills for Developers** (repository URL and skill identifiers remain stable).
+- Inventory script redacts matching source lines and unpinned dependency specifications to avoid leaking secrets.
+- Installer `--update` retains a backup of the previous installed skill, including local edits.
 - `vibe-security-check` hands off to `supabase-firebase-hardening` and `cve-to-pr-remediation` where relevant; `sbom-dependency-review` hands confirmed compromised releases to `cve-to-pr-remediation`.
 - Skill versions bumped to 0.2.0.
 
