@@ -14,6 +14,15 @@ class ToolkitTests(unittest.TestCase):
     def test_valid_skills(self):
         self.assertEqual(validate(ROOT), [])
 
+    def test_six_skills_including_remediation(self):
+        skills = sorted(p.name for p in (ROOT / 'skills').iterdir() if (p / 'SKILL.md').is_file())
+        self.assertEqual(len(skills), 6)
+        self.assertIn('cve-to-pr-remediation', skills)
+        remediation = (ROOT / 'skills/cve-to-pr-remediation/SKILL.md').read_text(encoding='utf8')
+        for requirement in ('G1 — Version evidence', 'G6 — Deployed-state verification',
+                            'UNVERIFIED ADVISORY', 'explicit approval'):
+            self.assertIn(requirement, remediation)
+
     def test_installer_is_non_overwriting(self):
         with tempfile.TemporaryDirectory() as path:
             project = Path(path)
