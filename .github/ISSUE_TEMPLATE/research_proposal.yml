@@ -1,0 +1,40 @@
+name: Research or skill proposal
+description: Propose a new security workflow or evidence-based improvement.
+title: "[Research] "
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Propose one clearly scoped improvement with public references and a synthetic evaluation case.
+        Keep all contributions independent of private employer and customer materials.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Security problem and intended users
+      description: Describe the concrete engineering decision this skill should improve.
+      placeholder: Which vulnerability, control or workflow gap are we addressing?
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Public evidence
+      description: Include primary advisories, specifications, vendor documentation or safe references.
+      placeholder: Source links and dates checked
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Proposed behavior and guardrails
+      description: Define inputs, expected outputs, consent boundaries and false-positive risks.
+    validations:
+      required: true
+  - type: textarea
+    id: evaluation
+    attributes:
+      label: Synthetic test case
+      description: Suggest a non-sensitive fixture and measurable success criteria.
+    validations:
+      required: true
