@@ -1,6 +1,6 @@
 # Contributing
 
-Thanks for improving Secure Vibe Coding. Open an issue first for a major change.
+Thanks for improving **Secure Agent Skills for Developers**. Use the [research proposal](.github/ISSUE_TEMPLATE/research_proposal.yml) template for new skills and the [security skill issue](.github/ISSUE_TEMPLATE/security_skill_issue.yml) template for reproducible defects.
 
 - Use original work and public information. Do not submit client data, nonpublic findings, access credentials, or employer-owned content.
 - Preserve Agent Skills frontmatter and portable instructions.
