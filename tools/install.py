@@ -8,6 +8,7 @@ import argparse
 from pathlib import Path
 import shutil
 import sys
+import uuid
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / 'skills'
@@ -50,13 +51,22 @@ def install(agent: str, scope: str, project: Path | None, selection: list[str],
                 print(f'SKIP (existing folder is not the {name} skill): {dst}')
                 skipped += 1
                 continue
-            staging = target / f'.{name}.updating'
-            if staging.exists():
-                shutil.rmtree(staging)
+            # Keep the previous skill intact as a backup, including user edits.
+            suffix = uuid.uuid4().hex
+            staging = target / f'.{name}.staging-{suffix}'
+            backup = target / f'.{name}.backup-{suffix}'
             shutil.copytree(available[name], staging)
-            shutil.rmtree(dst)
-            staging.rename(dst)
-            print(f'UPDATED: {dst}')
+            try:
+                dst.rename(backup)
+                try:
+                    staging.rename(dst)
+                except OSError:
+                    backup.rename(dst)  # Roll back if replacement fails.
+                    raise
+            finally:
+                if staging.exists():
+                    shutil.rmtree(staging)
+            print(f'UPDATED: {dst} (previous version backed up at {backup})')
             installed += 1
             continue
         shutil.copytree(available[name], dst)
