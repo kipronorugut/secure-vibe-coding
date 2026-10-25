@@ -45,4 +45,4 @@ if __name__ == '__main__':
     if errs:
         for err in errs: print('FAIL:', err, file=sys.stderr)
         raise SystemExit(1)
-    print('PASS: 5 portable skill definitions validated')
+    print(f"PASS: {sum(p.is_dir() and (p / 'SKILL.md').is_file() for p in (ROOT / 'skills').iterdir())} portable skill definitions validated")
