@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc" viewBox="0 0 1280 348" width="1280" height="348">
+<title id="title">Secure Agent Skills for Developers</title>
+<desc id="desc">A light editorial banner showing a practical engineering security flow from advisory to verified remediation.</desc>
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset="0.55" stop-color="#F4F8FF"/><stop offset="1" stop-color="#EAF2FF"/></linearGradient>
+  <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#1252CC"/><stop offset="1" stop-color="#4496F7"/></linearGradient>
+  <filter id="soft" x="-15%" y="-50%" width="130%" height="220%"><feDropShadow dx="0" dy="10" stdDeviation="18" flood-color="#17468C" flood-opacity=".10"/></filter>
+  <pattern id="grid" width="28" height="28" patternUnits="userSpaceOnUse"><path d="M28 0H0V28" fill="none" stroke="#C9DCF6" stroke-width=".65" opacity=".50"/></pattern>
+</defs>
+<rect width="1280" height="348" rx="22" fill="url(#bg)"/>
+<path d="M730 0H1280V348H900C1005 230 958 106 730 0Z" fill="#F0F6FF"/>
+<rect x="728" y="0" width="552" height="348" fill="url(#grid)" opacity=".45"/>
+<path d="M0 344H1280" stroke="#DCE7F8" stroke-width="2"/>
+<rect x="48" y="42" width="7" height="24" rx="3.5" fill="#2563EB"/>
+<text x="70" y="60" fill="#36577F" font-size="17" letter-spacing="3.3" font-family="IBM Plex Sans, Inter, Arial, sans-serif" font-weight="600">OPEN-SOURCE SECURITY RESEARCH</text>
+<text x="50" y="139" fill="#081B35" font-size="57" font-family="IBM Plex Sans, Inter, Arial, sans-serif" font-weight="700">Secure Agent Skills</text>
+<text x="50" y="195" fill="#1760D6" font-size="57" font-family="IBM Plex Sans, Inter, Arial, sans-serif" font-weight="700">for Developers</text>
+<text x="52" y="243" fill="#40566F" font-size="23" font-family="IBM Plex Sans, Inter, Arial, sans-serif">Practical security guidance, inside your coding agent.</text>
+<rect x="52" y="270" width="152" height="35" rx="17.5" fill="#E3EDFD"/>
+<text x="128" y="294" text-anchor="middle" fill="#1B55B7" font-size="16" font-family="IBM Plex Sans, Inter, Arial, sans-serif" font-weight="700">CODE REVIEW</text>
+<rect x="218" y="270" width="134" height="35" rx="17.5" fill="#E3EDFD"/>
+<text x="285" y="294" text-anchor="middle" fill="#1B55B7" font-size="16" font-family="IBM Plex Sans, Inter, Arial, sans-serif" font-weight="700">DEVSECOPS</text>
+<rect x="366" y="270" width="154" height="35" rx="17.5" fill="#E3EDFD"/>
+<text x="443" y="294" text-anchor="middle" fill="#1B55B7" font-size="16" font-family="IBM Plex Sans, Inter, Arial, sans-serif" font-weight="700">REMEDIATION</text>
+<g filter="url(#soft)">
+<rect x="756" y="75" width="458" height="226" rx="22" fill="#FFFFFF" stroke="#DCE8FA" stroke-width="1.5"/>
+</g>
+<text x="786" y="113" fill="#506882" font-size="16" letter-spacing="1.8" font-family="IBM Plex Sans, Inter, Arial, sans-serif" font-weight="700">FROM ADVISORY TO EVIDENCE</text>
+<line x1="812" y1="195" x2="1156" y2="195" stroke="#C4D9F8" stroke-width="4" stroke-linecap="round"/>
+<g>
+<circle cx="810" cy="195" r="29" fill="#E9F1FF" stroke="#8DB9F7" stroke-width="2"/>
+<path d="M798 195h24m-12-12v24" stroke="#1760D6" stroke-width="3" stroke-linecap="round"/>
+<circle cx="986" cy="195" r="29" fill="#E9F1FF" stroke="#8DB9F7" stroke-width="2"/>
+<path d="m974 195 8 8 17-19" fill="none" stroke="#1760D6" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="1157" cy="195" r="29" fill="#1760D6"/>
+<path d="m1144 196 9 9 18-20" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<text x="810" y="247" text-anchor="middle" fill="#3C5371" font-size="17" font-family="IBM Plex Sans, Inter, Arial, sans-serif" font-weight="600">Assess</text>
+<text x="986" y="247" text-anchor="middle" fill="#3C5371" font-size="17" font-family="IBM Plex Sans, Inter, Arial, sans-serif" font-weight="600">Fix</text>
+<text x="1157" y="247" text-anchor="middle" fill="#1760D6" font-size="17" font-family="IBM Plex Sans, Inter, Arial, sans-serif" font-weight="700">Verify</text>
+</svg>
