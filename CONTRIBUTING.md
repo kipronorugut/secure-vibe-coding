@@ -8,5 +8,7 @@ Thanks for improving Secure Vibe Coding. Open an issue first for a major change.
 - Attach a synthetic example showing that a proposed change improves review quality. State false-positive risks.
 - Run `python3 tools/validate_skills.py` and `python3 -m unittest discover -s tests -v`.
 - Avoid unverified compliance claims and avoid using brand trademarks as endorsements.
+- Advisory summaries in `skills/cve-to-pr-remediation/references/advisories.md` must cite public sources and carry an "as of" date. Update the dated table in `scripts/inventory.sh` in the same change, with a test fixture.
+- Helper scripts must stay read-only, offline and pass `shellcheck -S warning`.
 
 By submitting a contribution, you agree it is offered under the repository's MIT license.
