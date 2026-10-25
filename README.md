@@ -1,15 +1,15 @@
-# Secure Vibe Coding
+# Secure Agent Skills for Developers
 
 **Free, open-source security skills for AI-assisted developers.**
 
 **Author:** Kiprono Rugut — independent cybersecurity practitioner.  
-**Tagline:** Vibe code faster. Ship safer.
+**Tagline:** Build securely. Patch confidently. Ship safer.
 
-A vendor-neutral Agent Skills toolkit for Claude Code, Claude Cowork, Cursor, and OpenAI Codex. Use it to review AI-generated software, prioritize security issues, examine dependencies and SBOMs, spot secrets, assess CI/CD security, harden Supabase/Firebase back ends, and turn security advisories into verified patches. These are **assistive review workflows**, not substitutes for testing, specialist assessment, or a security guarantee.
+Free, portable security skills for developers, compatible with the Agent Skills standard. A vendor-neutral toolkit for Claude Code, Claude Cowork, Cursor, and OpenAI Codex. Use it to review AI-generated software, prioritize security issues, examine dependencies and SBOMs, spot secrets, assess CI/CD security, harden Supabase/Firebase back ends, and turn security advisories into verified patches. These are **assistive review workflows**, not substitutes for testing, specialist assessment, or a security guarantee.
 
 > **Independent project.** This repository is the personal open-source work of Kiprono Rugut. It is not an official project of, or endorsed by, any employer, client, or other company. Do not contribute confidential or employer-owned materials.
 
-## Seven skills
+## Seven developer security skills
 
 | Skill | What it helps with | Invocation example |
 | --- | --- | --- |
@@ -56,7 +56,7 @@ python3 tools/install.py --agent claude --project /path/to/your/app
 python3 tools/install.py --agent codex --project /path/to/your/app
 ```
 
-**Do not run all three unless using all three agents.** The installer copies the skill directories into the chosen project's conventional directory without overwriting existing skills. To upgrade a previous install to this version, add `--update` (it only replaces folders that already contain the same skill).
+**Do not run all three unless using all three agents.** The installer copies the skill directories into the chosen project's conventional directory without overwriting existing skills. To upgrade a previous install to this version, add `--update`. Previous versions and any local edits are preserved in hidden `.backup-*` directories next to the installed skills.
 
 | Agent | Project install | Personal install |
 | --- | --- | --- |
@@ -76,7 +76,7 @@ To install one skill:
 python3 tools/install.py --agent cursor --project /path/to/your/app --skill vibe-security-check
 ```
 
-To inspect the installer before running it, open `tools/install.py`. It uses only Python's standard library; it does not download dependencies or execute code from the target project. By default it refuses to overwrite installed skills (unless `--update` is given) and refuses symbolic-link destinations. The installer changes **files** in the target project or user skill directory; it does not run security scans.
+To inspect the installer before running it, open `tools/install.py`. It uses only Python's standard library; it does not download dependencies or execute code from the target project. By default it refuses to overwrite installed skills (unless `--update` is given; then it preserves backups) and refuses symbolic-link destinations. The installer changes **files** in the target project or user skill directory; it does not run security scans.
 
 ## Claude Cowork / Claude.ai
 
